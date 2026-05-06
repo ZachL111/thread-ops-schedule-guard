@@ -63,3 +63,9 @@ node tests/policy.test.js
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-thread-ops-schedule-detail.ps1
 
 node tests/domainReview.test.js
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-thread-ops-schedule-properties.ps1
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-thread-ops-schedule-golden.ps1
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

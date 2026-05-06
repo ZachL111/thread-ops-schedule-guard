@@ -1,0 +1,17 @@
+{
+  "repo": "thread-ops-schedule-guard",
+  "thresholds": {
+    "signal": 4,
+    "slack": 2,
+    "confidence": 2,
+    "drag": 4,
+    "ship": 195,
+    "watch": 123
+  },
+  "terms": [
+    "dry-run spread",
+    "rename risk",
+    "operator cost",
+    "idempotence"
+  ]
+}
