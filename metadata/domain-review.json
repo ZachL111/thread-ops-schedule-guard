@@ -1,0 +1,73 @@
+{
+  "repo": "thread-ops-schedule-guard",
+  "language": "JavaScript",
+  "category": "Automation",
+  "goal": "Develop a JavaScript command-oriented project for schedule scenarios with transition tables, invalid-transition tests, and single-node deterministic mode.",
+  "review_model": {
+    "terms": [
+      "dry-run spread",
+      "rename risk",
+      "operator cost",
+      "idempotence"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "dry-run spread",
+      "signal": 56,
+      "slack": 35,
+      "drag": 29,
+      "confidence": 86,
+      "score": 146,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "rename risk",
+      "signal": 55,
+      "slack": 40,
+      "drag": 15,
+      "confidence": 55,
+      "score": 160,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "operator cost",
+      "signal": 83,
+      "slack": 47,
+      "drag": 23,
+      "confidence": 60,
+      "score": 204,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "idempotence",
+      "signal": 53,
+      "slack": 30,
+      "drag": 8,
+      "confidence": 48,
+      "score": 160,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "dry-run spread",
+      "signal": 73,
+      "slack": 31,
+      "drag": 8,
+      "confidence": 45,
+      "score": 198,
+      "lane": "ship"
+    }
+  ]
+}

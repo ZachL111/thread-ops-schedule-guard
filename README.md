@@ -1,69 +1,40 @@
 # thread-ops-schedule-guard
 
-`thread-ops-schedule-guard` is a focused JavaScript codebase around develop a JavaScript command-oriented project for schedule scenarios with transition tables, invalid-transition tests, and single-node deterministic mode. It is meant to be easy to inspect, run, and extend without a hosted service.
+`thread-ops-schedule-guard` is a JavaScript project in automation. Its focus is to develop a JavaScript command-oriented project for schedule scenarios with transition tables, invalid-transition tests, and single-node deterministic mode.
 
-## Thread Ops Schedule Guard Walkthrough
+## Why It Exists
 
-I would read the project from the outside in: command, fixture, model, then roadmap. That keeps the automation idea grounded in files that can be checked locally.
+I want this repository to be useful as a quick reading exercise: fixtures first, implementation second, verifier last.
 
-## Reason For The Project
+## Thread Ops Schedule Guard Review Notes
 
-I use this kind of project to make a rule visible before adding more machinery around it. The important part here is not the size of the codebase. It is that the input signals, scoring rule, fixture data, and expected output can all be checked in one sitting.
+The first comparison I would make is `operator cost` against `dry-run spread` because it shows where the rule is most opinionated.
 
-## Data Notes
+## Features
 
-The extended cases are not random smoke tests. `degraded` keeps pressure on the review path, while `surge` shows the model when capacity and weight are strong enough to clear the threshold.
+- `fixtures/domain_review.csv` adds cases for dry-run spread and rename risk.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/thread-ops-schedule-walkthrough.md` walks through the case spread.
+- The JavaScript code includes a review path for `operator cost` and `dry-run spread`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## How It Is Put Together
+## Architecture Notes
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The JavaScript version uses native modules and a small Node test path.
+The repository has two validation layers: the original compact policy fixture and the domain review fixture. They are separate so one can change without hiding failures in the other.
 
-## Capabilities
+The JavaScript addition stays small enough to inspect in one sitting.
 
-- Models dry-run output with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep file plans changes visible in code review.
-- Includes extended examples for safety rails, including `surge` and `degraded`.
-- Documents idempotent checks tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-
-## Command Examples
+## Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Tests
 
-## Check The Work
+The verifier is intentionally local. It should fail if the fixture score math, lane assignment, or language-specific test drifts.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Limitations And Roadmap
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Where Things Live
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-- `package.json`: Node package scripts
-
-## Possible Extensions
-
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Add one more automation fixture that focuses on a malformed or borderline input.
-
-## Tradeoffs
-
-The examples cover useful edges, not every edge. A larger version would add malformed-input tests, richer reports, and deeper domain parsers.
-
-## Getting It Running
-
-Clone the repository, enter the directory, and run the verifier. No database server, cloud account, or token is required.
+No external service is required. A deeper version would add more negative cases and a clearer boundary around invalid input.
